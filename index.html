@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NextSearch</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="mystyle.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
+    <style>
+      html,body {
+        margin: 0;
+        height: 100%;
+      }
+      /* Remove the navbar's default margin-bottom and rounded borders */
+      .navbar {
+        margin-bottom: 0;
+        border-radius: 0;
+      }
+
+      /* Add a gray background color and some padding to the footer */
+      footer {
+        background-color: #f2f2f2;
+        padding: 25px;
+      }
+    </style>
+  </head>
+  <body ng-app="MyApp" ng-controller="MyController">
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">USC Career Fair</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="works.html">How it works</a></li>
+          <!-- <li><a href="#">Gallery</a></li>
+          <li><a href="#">Contact</a></li> -->
+        </ul>
+        <!-- <ul class="nav navbar-nav navbar-right">
+          <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul> -->
+      </div>
+    </div>
+  </nav>
+
+  <div class="jumbotron">
+    <div class="container text-center">
+
+      <form class="form-inline">
+        <div class=".col-lg-12">
+          <h2>Welcome to USC Career Fair</h2>
+        </div>
+      </form>
+      <br>
+
+      <button type="button" class="btn btn-default btn-lg" ng-click="login()">Students Login</button>
+      <button type="button" class="btn btn-default btn-lg" ng-click="login()">Recruiters Login</button>
+
+    </div>
+  </div>
+
+  <!-- <footer class="container-fluid text-center">
+    <p>Trojan Hacks</p>
+  </footer> -->
+  <script src="script.js"></script>
+</body>
+</html>
