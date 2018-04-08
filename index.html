@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>NextSearch</title>
+    <title>Career Fair</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="mystyle.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+    <script type="text/javascript" src="qrcode.min.js"></script>
+    <script type="text/javascript" src="instascan.min.js"></script>
     <style>
       html,body {
         margin: 0;
         height: 100%;
+        background-color: #f2f2f2;
       }
       /* Remove the navbar's default margin-bottom and rounded borders */
       .navbar {
@@ -29,45 +32,331 @@
   </head>
   <body ng-app="MyApp" ng-controller="MyController">
 
-  <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="index.html">USC Career Fair</a>
-      </div>
-      <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="works.html">How it works</a></li>
-          <!-- <li><a href="#">Gallery</a></li>
-          <li><a href="#">Contact</a></li> -->
-        </ul>
-        <!-- <ul class="nav navbar-nav navbar-right">
-          <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        </ul> -->
-      </div>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" ng-click="home()" href="index.html">FairEasy</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" ng-click="home()" href="index.html">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">How it Works</a>
+        </li>
+      </ul>
     </div>
   </nav>
 
-  <div class="jumbotron">
-    <div class="container text-center">
+  <br> <br>
 
-      <form class="form-inline">
-        <div class=".col-lg-12">
-          <h2>Welcome to USC Career Fair</h2>
+  <div ng-show="landingDiv" class="container text-center">
+    <div class=".col-lg-12">
+      <h1>FairEasy</h1><h5>Career Fair Made Easy</h5>
+    </div>
+    <br>
+    <button type="button" class="btn btn-default btn-lg" ng-click="showlogin()">Login</button>
+    <button type="button" class="btn btn-default btn-lg" ng-click="showRegister()">Register</button>
+  </div>
+
+  <br> <br>
+
+  <div ng-show="loginDiv" class="container text-center">
+    <div class="d-flex justify-content-center">
+        <form>
+        <div class="form-group">
+          <label>Please enter your information to access Information</label>
+        </div>
+        <div class="form-group row">
+          <label for="inputEmail" class="col-sm-4 col-form-label">Email</label>
+          <div class="col-sm-8">
+            <input type="email" ng-model="login_email" class="form-control" placeholder="Email">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">Password</label>
+          <div class="col-sm-8">
+            <input type="password" ng-model="login_pwd" class="form-control" placeholder="Password">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">Type</label>
+          <div class="col-sm-8" style="padding-top: 0.4em;padding-right: 5em;">
+            <input type="radio" ng-model="radioButton1" ng-value="true">
+            Student
+            <input type="radio" ng-model="radioButton1" ng-value="false">
+            Recruiter
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-5">
+            <button type="submit" ng-click="login()" class="btn btn-primary">Sign in</button>
+          </div>
+          <div class="col-sm-2">
+            <label class="col-sm-12 col-form-label">or</label>
+          </div>
+          <div class="col-sm-5">
+            <button type="submit" ng-click="showRegister()" class="btn btn-primary">Register</button>
+          </div>
         </div>
       </form>
-      <br>
-
-      <button type="button" class="btn btn-default btn-lg" ng-click="login()">Students Login</button>
-      <button type="button" class="btn btn-default btn-lg" ng-click="login()">Recruiters Login</button>
-
     </div>
   </div>
+
+  <div ng-show="registerDiv" class="container text-center">
+    <div class="d-flex justify-content-center">
+        <form>
+        <div class="form-group">
+          <label><h3>REGISTRATION</h3></label>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">First Name</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" ng-model="fname" placeholder="First Name">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">Last Name</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" ng-model="lname" placeholder="Last Name">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">Email</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" ng-model="email" placeholder="Email">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">Password</label>
+          <div class="col-sm-8">
+            <input type="password" class="form-control" ng-model="password" placeholder="Password">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">Type</label>
+          <div class="col-sm-8" style="padding-top:0.4em;">
+            <input type="radio" ng-model="radioButton" ng-value="true">
+            Student
+            <input type="radio" ng-model="radioButton" ng-value="false">
+            Recruiter
+          </div>
+        </div>
+
+        <div ng-show="radioButton" class="form-group row">
+          <label class="col-sm-4 col-form-label">Major</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" ng-model="major" placeholder="eg. Computer Science">
+          </div>
+        </div>
+        <div ng-show="radioButton" class="form-group row">
+          <label class="col-sm-4 col-form-label">USC ID</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" ng-model="usc_id" placeholder="10 digit id">
+          </div>
+        </div>
+        <div ng-show="!radioButton" class="form-group row">
+          <label class="col-sm-4 col-form-label">Company</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" ng-model="company" placeholder="Company's Name">
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-12">
+            <button type="submit" ng-click="register()" class="btn btn-primary">Register</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <div ng-show="studentsDashboard" class="container text-center">
+
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="Companies-tab" data-toggle="tab" href="#companies" role="tab" aria-controls="home" aria-selected="true">Companies</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="qrcode-tab" data-toggle="tab" href="#qr-code" role="tab" aria-controls="profile" aria-selected="false">QR Code</a>
+      </li>
+    </ul>
+
+    <br><br>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="companies" role="tabpanel" aria-labelledby="Companies-tab">
+        <div class="table-responsive">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Company Name</th>
+                <th scope="col">Position in Queue</th>
+                <th scope="col">Est. Time Remaining</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="(key,value) in dummy_data">
+                <th scope="row">{{$index + 1}}</th>
+                <td ng-repeat="(key,value) in value">{{key}}</td>
+                <td ng-repeat="(key,value) in value">{{value}}</td>
+                <td>{{key}} min</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="d-flex justify-content-center">
+            <form>
+            <div class="form-group">
+              <label><h3>Profile Information</h3></label>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">First Name</label>
+              <div class="col-sm-8">
+                <input type="text" ng-model="fname" class="form-control">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Last Name</label>
+              <div class="col-sm-8">
+                <input type="text" ng-model="lname" class="form-control">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Email</label>
+              <div class="col-sm-8">
+                <input type="email" ng-model="email" class="form-control">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">USC ID</label>
+              <div class="col-sm-8">
+                <input type="text" ng-model="usc_id" class="form-control">
+              </div>
+            </div>
+            <br>
+            <div class="form-group row">
+              <div class="col-sm-2">
+              </div>
+              <div class="col-sm-8"> <!-- update info -->
+                <button type="submit" ng-click="profile_update()" class="btn btn-primary">Update</button>
+              </div>
+              <div class="col-sm-2">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="qr-code" role="tabpanel" aria-labelledby="qrcode-tab">
+        <div class="d-flex justify-content-center">
+          <div id="qrcode"></div>
+        </div>
+      </div>
+    </div> <!-- tab content -->
+
+    <br><br>
+
+  </div> <!-- student dashboard -->
+
+
+  <div ng-show="recruiterDashboard" class="container">
+    <ul class="nav nav-tabs" id="myTab1" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="students-tab" data-toggle="tab" href="#students" role="tab" aria-controls="home" aria-selected="true">Students</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="rprofile-tab" data-toggle="tab" href="#rprofile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+      </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link" id="resume-tab" data-toggle="tab" href="#resume" role="tab" aria-controls="profile" aria-selected="false">Resume</a>
+      </li> -->
+    </ul>
+
+    <br><br>
+    <div class="tab-content" id="myTabContent">
+
+      <div class="tab-pane fade show active" id="students" role="tabpanel" aria-labelledby="students-tab">
+        <div class="row">
+            <div class="col-sm-4">
+              <ul class="list-group">
+                <li class="list-group-item" ng-click="check_student($index)" ng-repeat="value in student_list_data">
+                  {{value}}
+                </li>
+              </ul>
+            </div>
+            <div class="col-sm-8">
+              <video id="preview"></video>
+            </div>
+        </div>
+      </div>
+
+      <!-- <div class="tab-pane fade" id="scan" role="tabpanel" aria-labelledby="scan-tab">
+        <div class="row justify-content-md-center">
+          <div class="col-sm-8">
+            <video id="preview"></video>
+          </div>
+        </div>
+      </div> -->
+
+      <div class="tab-pane fade" id="rprofile" role="tabpanel" aria-labelledby="rprofile-tab">
+        <div class="d-flex justify-content-center">
+            <form>
+            <div class="form-group">
+              <label><h3>Profile Information</h3></label>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">First Name</label>
+              <div class="col-sm-8">
+                <input type="text" ng-model="fname" class="form-control">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Last Name</label>
+              <div class="col-sm-8">
+                <input type="text" ng-model="lname" class="form-control">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Email</label>
+              <div class="col-sm-8">
+                <input type="email" ng-model="email" class="form-control">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Company</label>
+              <div class="col-sm-8">
+                <input type="text" ng-model="company" class="form-control">
+              </div>
+            </div>
+            <br>
+            <div class="form-group row">
+              <div class="col-sm-2">
+              </div>
+              <div class="col-sm-8"> <!-- update info -->
+                <button type="submit" ng-click="profile_update()" class="btn btn-primary">Update</button>
+              </div>
+              <div class="col-sm-2">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div> <!-- tab content -->
+
+
+
+  </div> <!-- Recruiter Dashboard -->
 
   <!-- <footer class="container-fluid text-center">
     <p>Trojan Hacks</p>
